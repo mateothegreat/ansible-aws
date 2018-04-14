@@ -4,6 +4,7 @@ Perform `make install` to install dependencies
 
 ```bash
 $ make install
+
 ansible-galaxy install -r requirements.yml
 - downloading role 'postgresql', owned by geerlingguy
 - downloading role from https://github.com/geerlingguy/ansible-role-postgresql/archive/1.3.2.tar.gz
