@@ -1,0 +1,39 @@
+# We will have one RT for the public subnet,
+# and one for the private subnet.
+# You can see that the Route Table for the private subnet
+# will redirect default destinations to the NAT Gateway
+# and the Route Table for the public subnet will use the
+# Internet Gateway.
+# 
+# We don't see it here, but the Route Tables will also contain 
+# a route for resources inside the VPC, so that if we need 
+# to reach an internal resource, we don't go to the Internet
+# Gateway or the NAT Gateway.
+
+- name: Set up public subnet route table
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    tags:
+      Name: "Public"
+    subnets:
+      - "{{ public_subnet_id }}"
+    routes:
+      - dest: "0.0.0.0/0"
+        gateway_id: "{{ igw_id }}"
+
+- name: Set up private subnet route table
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    tags:
+      Name: "Private"
+    subnets:
+      - "{{ private_subnet_id }}"
+    routes:
+      - dest: "0.0.0.0/0"
+        gateway_id: "{{ nat_gateway_id }}"

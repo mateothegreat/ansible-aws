@@ -1,0 +1,19 @@
+# As you can see, we attach a NAT Gateway to a public subnet.
+# This is where the service will be located.
+
+- name: Create NAT Gateway
+  shell: >
+    aws ec2 create-nat-gateway \
+    --subnet-id {{ public_subnet_id }} \
+    --allocation-id {{ my_elastic_ip }} \
+    --query NatGateway.NatGatewayId | tr -d '"'
+  register: my_nat_gateway
+
+- name: Set Nat Gateway ID in variable
+  set_fact:
+    nat_gateway_id: "{{ my_nat_gateway.stdout }}"
+
+
+# We pause a few seconds for the NAT Gateway to be ready.
+
+- pause: seconds=5

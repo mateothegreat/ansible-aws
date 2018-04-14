@@ -1,0 +1,28 @@
+# Now we create an AWS Elastic IP.
+# This is the IP address we will attach to the NAT Gatway.
+# From that moment, we will own that IP address.
+# That means if later we want to use a different service for NAT,
+# we will be able to use that IP. Pretty useful. 
+    
+- name: Setup AWS CLI (1/3)
+  shell: >
+    aws configure set aws_access_key_id "{{ aws_access_key }}"
+
+- name: Setup AWS CLI (2/3)
+  shell: >
+    aws configure set aws_secret_access_key "{{ aws_secret_key }}"
+
+- name: Setup AWS CLI (3/3)
+  shell: >
+    aws configure set region {{ aws_region }}
+
+- name: Create Elastic IP
+  shell: >
+      aws ec2 allocate-address --domain vpc --query AllocationId | tr -d '"'
+  register: eip
+
+- debug: var=eip
+
+- name: Set EIP in variable
+  set_fact:
+    my_elastic_ip: "{{ eip.stdout }}"

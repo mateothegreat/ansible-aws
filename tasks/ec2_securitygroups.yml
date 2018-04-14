@@ -1,0 +1,32 @@
+- name: Create Main Security Group
+  ec2_group:
+    name: "{{ vpc_name }} - External SSH Access"
+    description: "External SSH Access"
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    rules:
+      - proto: "tcp"
+        from_port: "22"
+        to_port: "22"
+        cidr_ip: "{{ my_ip }}/32"
+  register: my_main_sg
+
+- name: Set Main SG ID
+  set_fact:
+    main_sg_id: "{{ my_main_sg.group_id }}"
+
+- name: Create Private Security Group
+  ec2_group:
+    name: "{{ vpc_name }} - Private Instances SG"
+    description: "Private Instances SG"
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    rules:
+      - proto: "tcp"
+        from_port: "22"
+        to_port: "22"
+        group_id: "{{ main_sg_id }}"

@@ -1,0 +1,14 @@
+- name: Create AWS Environment
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - vars/aws.yml
+    - vars/aws_credentials.yml
+  tasks:
+    - import_tasks: tasks/ec2_vpc.yml
+    - import_tasks: tasks/ec2_securitygroups.yml
+    - import_tasks: tasks/ec2_subnets.yml
+    - import_tasks: tasks/ec2_internet_gateway.yml
+    - import_tasks: tasks/ec2_elasticip.yml
+    - import_tasks: tasks/ec2_nat_gateway.yml
+    - import_tasks: tasks/ec2_routes.yml
