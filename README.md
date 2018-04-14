@@ -20,3 +20,13 @@ Requirement already up-to-date: s3transfer<0.2.0,>=0.1.10 in /home/yomateod/.loc
 Requirement already up-to-date: six>=1.5 in /home/yomateod/.local/lib/python2.7/site-packages (from python-dateutil<2.7.0,>=2.1->botocore)
 Requirement already up-to-date: futures<4.0.0,>=2.2.0; python_version == "2.6" or python_version == "2.7" in /home/yomateod/.local/lib/python2.7/site-packages (from s3transfer<0.2.0,>=0.1.10->boto3)
 ```
+
+Create an aws keypair using your ~/.ssh/id_rsa.pub public key
+
+```bash
+make keypair/create
+```
+
+# References
+
+* https://docs.ansible.com/ansible/devel/modules/ec2_module.html
