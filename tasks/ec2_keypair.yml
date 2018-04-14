@@ -1,0 +1,11 @@
+- name: Create ec2 Keypair using local PublicKey
+  tags: 
+    - keypair
+  local_action:
+    module: ec2_key
+    aws_access_key:   "{{ aws_access_key }}"
+    aws_secret_key:   "{{ aws_secret_key }}"    
+    region: "{{ aws_region }}"
+    name: "{{ aws_keypair_name }}"
+    key_material: "{{ item }}"
+  with_file: ~/.ssh/id_rsa.pub

@@ -1,17 +1,19 @@
-aws_instance_type: t2.micro
-aws_image: ami-3bd8f25e
-aws_region: us-west-2
-my_ip: "96.83.34.121"
-
-#
+my_ip:                      "96.83.34.131"
+aws_region:                 "us-west-2"
+aws_default_size:           "t2.small"
+aws_instance_type:          "t2.micro"
+aws_image:                  "ami-3bd8f25e"
+aws_keypair_name:           "ansible-01"
+aws_centos_ami:             "ami-1251dd72"              # DC/OS Cloud Image for CentOS 7
 # VPC Information
-#
-vpc_name:       "ansible-vpc-01"
-vpc_cidr_block: "10.0.0.0/16"
-
-
-# Subnets
-public_subnet_1_cidr:  "10.0.0.0/24"
-private_subnet_1_cidr: "10.0.1.0/24"
-public_subnet_2_cidr:  "10.0.10.0/24"
-private_subnet_2_cidr: "10.0.11.0/24"
+vpc_name:                   "ansible-vpc-01"
+vpc_cidr_block:             "10.0.0.0/16"
+# VPC Subnets
+public_subnet_1_id:         "subnet-01bc15e446fab5374"
+public_subnet_1_cidr:       "10.0.0.0/24"
+private_subnet_1_cidr:      "10.0.1.0/24"
+public_subnet_2_cidr:       "10.0.10.0/24"
+private_subnet_2_cidr:      "10.0.11.0/24"
+# Custom stuff
+aws_vm_prefix:              "ansible-vmdev"
+aws_vm_securitygroup_id:    "sg-017da912d60dddff1"

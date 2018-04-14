@@ -5,6 +5,7 @@
     - vars/aws.yml
     - vars/aws_credentials.yml
   tasks:
+    - import_tasks: tasks/ec2_keypair.yml
     - import_tasks: tasks/ec2_vpc.yml
     - import_tasks: tasks/ec2_securitygroups.yml
     - import_tasks: tasks/ec2_subnets.yml
@@ -12,3 +13,16 @@
     - import_tasks: tasks/ec2_elasticip.yml
     - import_tasks: tasks/ec2_nat_gateway.yml
     - import_tasks: tasks/ec2_routes.yml
+
+    - import_tasks: tasks/ec2_instance.yml
+      vars:
+        - name: "{{ aws_vm_prefix }}-postgresql-01"
+        - service: postgresql
+
+    # - import_tasks: tasks/service_postgresql.yml
+    #   vars:
+    #     - hosts: "{{ ec2instance.instance_ids }}"
+    
+    # - import_tasks: tasks/ec2_instance_terminate.yml
+    #   vars:
+    #     - instance_ids: "{{ ec2instance.instance_ids }}"

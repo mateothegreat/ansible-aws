@@ -1,0 +1,8 @@
+- name: "Configure Postgresql on instance(s)"
+  hosts: "{{ hosts }}"
+  become: True
+  gather_facts: True
+  vars_files:
+    - vars/postgresql.yml
+  roles:
+    - geerlingguy.postgresql
