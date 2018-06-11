@@ -6,4 +6,4 @@
 
 # Install roles from ansible galaxy
 #
-- src: geerlingguy.postgresql
+# - src: geerlingguy.postgresql
